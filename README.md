@@ -2,6 +2,15 @@
 
 Port of the [Termius](https://www.termius.com/) app for Linux using the RPM package format.
 
+## Installation
+
+You can install the RPM package from copr repository:
+
+```bash
+sudo dnf copr enable saph1s/termius-app
+sudo dnf install termius-app
+```
+
 ## How to build
 
 1. Clone the repository:

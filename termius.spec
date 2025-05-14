@@ -1,5 +1,7 @@
+%global package_version 9.19.4
+
 Name:           termius-app
-Version:        9.19.4
+Version:        %{package_version}
 Release:        1%{?dist}
 Summary:        Desktop SSH Client
 

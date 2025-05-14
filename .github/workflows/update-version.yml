@@ -1,0 +1,45 @@
+name: Daily Version Update
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: sudo apt update && sudo apt install -y wget gzip
+
+      - name: Download packages info from repository
+        run: |
+          wget -O Packages.gz https://deb.termius.com/dists/squeeze/main/binary-amd64/Packages.gz
+          gzip -d Packages.gz
+
+      - name: Extract version number
+        id: extracted_version
+        run: |
+          VERSION=$(awk '/^Package: termius-app/{p=1} p&&/^Version:/{print $2; exit}' Packages)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+
+      - name: Update .spec file
+        run: |
+          CURRENT_VERSION=$(awk '/^%global[[:space:]]+package_version/ {print $3}' termius.spec)
+          if [ "$CURRENT_VERSION" != "$VERSION" ]; then
+            sed -i "s/^%global[[:space:]]\+package_version.*/%global package_version $VERSION/" termius.spec
+            echo "updated=true" >> $GITHUB_ENV
+          else
+            echo "updated=false" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and push changes
+        if: env.updated == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update version to $VERSION"
+          commit_user_name: "GitHub Action"
