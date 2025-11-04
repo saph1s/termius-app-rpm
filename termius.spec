@@ -1,4 +1,4 @@
-%global package_version 9.32.3
+%global package_version 9.32.4
 
 Name:           termius-app
 Version:        %{package_version}
