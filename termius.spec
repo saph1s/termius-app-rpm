@@ -9,7 +9,7 @@ License:        unknown
 URL:            https://termius.com/
 Source0:        https://termius.com/download/linux/Termius.deb
 
-BuildRequires:  wget, tar
+BuildRequires:  wget, tar, zlib, binutils
 Requires:       gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2-core, libuuid, libsecret, libappindicator-gtk3
 
 ExclusiveArch:  x86_64
