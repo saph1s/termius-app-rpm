@@ -2,7 +2,7 @@
 
 Name:           termius-app
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop SSH Client
 
 License:        unknown

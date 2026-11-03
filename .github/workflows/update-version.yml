@@ -32,6 +32,7 @@ jobs:
           CURRENT_VERSION=$(awk '/^%global[[:space:]]+package_version/ {print $3}' termius.spec)
           if [ "$CURRENT_VERSION" != "$VERSION" ]; then
             sed -i "s/^%global[[:space:]]\+package_version.*/%global package_version $VERSION/" termius.spec
+            sed -i 's/^Release:.*/Release:        1%{?dist}/' termius.spec
             echo "updated=true" >> $GITHUB_ENV
           else
             echo "updated=false" >> $GITHUB_ENV
