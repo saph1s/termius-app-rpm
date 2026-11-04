@@ -1,8 +1,8 @@
-%global package_version 10.3.0
+%global package_version 10.4.0
 
 Name:           termius-app
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Desktop SSH Client
 
 License:        unknown
